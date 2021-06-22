@@ -52,6 +52,7 @@ jobs:
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
     - run: |
+       apt-get install -y dos2unix
        dos2unix buildLinux.sh
        ./buildLinux.sh Ubuntu18 4.0.0.x
 
