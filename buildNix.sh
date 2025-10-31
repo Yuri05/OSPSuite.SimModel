@@ -43,12 +43,22 @@ do
   cp packages/OSPSuite.FuncParser.$FUNCPARSER_DIR/OSPSuite.FuncParserNative/bin/native/$ARCH/${BuildType}/libOSPSuite.FuncParserNative.$EXT Build/${BuildType}/$ARCH/
   cp packages/OSPSuite.SimModelSolver_CVODES.$CVODES_DIR/OSPSuite.SimModelSolver_CVODES/bin/native/$ARCH/${BuildType}/libOSPSuite.SimModelSolver_CVODES.$EXT Build/${BuildType}/$ARCH/
   make -C Build/${BuildType}/$ARCH/
+  
+  # Build C++ tests
+  cmake -BBuild/${BuildType}/$ARCH/Tests/ -Htests/OSPSuite.SimModelNative.Tests/ -DCMAKE_BUILD_TYPE=${BuildType} -DFuncParserDir=Build/${BuildType}/$ARCH/ -DEXT=$EXT
+  cp packages/OSPSuite.FuncParser.$FUNCPARSER_DIR/OSPSuite.FuncParserNative/bin/native/$ARCH/${BuildType}/libOSPSuite.FuncParserNative.$EXT Build/${BuildType}/$ARCH/Tests/
+  cp packages/OSPSuite.SimModelSolver_CVODES.$CVODES_DIR/OSPSuite.SimModelSolver_CVODES/bin/native/$ARCH/${BuildType}/libOSPSuite.SimModelSolver_CVODES.$EXT Build/${BuildType}/$ARCH/Tests/
+  make -C Build/${BuildType}/$ARCH/Tests/
+  
   dotnet build OSPSuite.SimModel4Nix.sln /property:Configuration=${BuildType}
 done
 
-export LD_LIBRARY_PATH=Build/Release/$ARCH:$LD_LIBRARY_PATH
-export DYLD_LIBRARY_PATH=Build/Release/$ARCH:$DYLD_LIBRARY_PATH
+export LD_LIBRARY_PATH=Build/Release/$ARCH:Build/Release/$ARCH/Tests:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=Build/Release/$ARCH:Build/Release/$ARCH/Tests:$DYLD_LIBRARY_PATH
 
 dotnet test tests/OSPSuite.SimModel.Tests/OSPSuite.SimModel.Tests.csproj --no-build --no-restore --configuration:Release --verbosity normal --logger:"html;LogFileName=../../../testLog_$1.html"
+
+# Run C++ tests
+Build/Release/$ARCH/Tests/OSPSuite.SimModelNative.Tests --gtest_output=xml:testLog_${1}_Cpp.xml
 
 dotnet pack src/OSPSuite.SimModel/ -p:PackageVersion=$2 -o ./
