@@ -3,4 +3,6 @@ msbuild OSPSuite.SimModel.sln -t:build -restore /property:Configuration=Debug;Pl
 
 dotnet test tests/OSPSuite.SimModel.Tests/OSPSuite.SimModel.Tests.csproj --no-build --no-restore --configuration:Release --verbosity normal --logger:"html;LogFileName=../../../testLog_Windows.html"
 
+Build\Release\x64\Tests\OSPSuite.SimModelNative.Tests.exe --gtest_output=xml:testLog_Windows_Cpp.xml
+
 dotnet pack src/OSPSuite.SimModel/OSPSuite.SimModel.csproj -o ./ -p:PackageVersion=%1

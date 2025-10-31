@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Purify_Debug|x64">
+      <Configuration>Purify_Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B7E8D1F0-9876-4321-ABCD-1234567890AB}</ProjectGuid>
+    <RootNamespace>OSPSuiteSimModelNativeTests</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OSPSuite.SimModelNative.Tests</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Purify_Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\src\properties\common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\src\properties\common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Purify_Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\src\properties\common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\$(Platform)\Tests\</OutDir>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Purify_Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\$(Platform)\Tests\</OutDir>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\$(Platform)\Tests\</OutDir>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PreBuildEvent>
+      <Command>nuget.exe install ..\..\packages.config -OutputDirectory ..\..\packages -ExcludeVersion
+nuget.exe install packages.config -OutputDirectory ..\..\packages -ExcludeVersion</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\Include;$(FuncParserPath)include;$(SolverPath)include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)Build\$(Configuration)\$(Platform)\libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Purify_Debug|x64'">
+    <PreBuildEvent>
+      <Command>nuget.exe install ..\..\packages.config -OutputDirectory ..\..\packages -ExcludeVersion
+nuget.exe install packages.config -OutputDirectory ..\..\packages -ExcludeVersion</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\Include;$(FuncParserPath)include;$(SolverPath)include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)Build\$(Configuration)\$(Platform)\libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PreBuildEvent>
+      <Command>nuget.exe install ..\..\packages.config -OutputDirectory ..\..\packages -ExcludeVersion
+nuget.exe install packages.config -OutputDirectory ..\..\packages -ExcludeVersion</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\Include;$(FuncParserPath)include;$(SolverPath)include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)Build\$(Configuration)\$(Platform)\libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MathHelperTests.cpp" />
+    <ClCompile Include="src\FormulaTests.cpp" />
+    <ClCompile Include="src\ValuePointTests.cpp" />
+    <ClCompile Include="src\TObjectVectorTests.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\BandwidthReduction.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\BooleanFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ConstantFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\CppODEExporter.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\DESolver.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\DESolverProperties.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\DiffFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\DivFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ExplicitFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Formula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\FormulaChange.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\FormulaFactory.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\GlobalConstants.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\HierarchicalFormulaObject.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\IfFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\MathHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\MatlabODEExporter.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\MaxFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\MinFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\MultFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ObjectBase.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Observer.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\OutputInterval.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\OutputSchema.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Parameter.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ParameterFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ParameterInfo.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\ParameterSensitivity.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\PInvokeHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\PInvokeQuantity.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Quantity.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\QuantityInfo.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\QuantityReference.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\RateFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Simulation.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\SimulationOptions.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\SimModelXMLHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Species.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\SpeciesInfo.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\SumFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Switch.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\SwitchFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\TableFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\TableFormulaWithOffset.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\TableFormulaWithXArgument.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\Variable.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\VariableFormula.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\XMLLoader.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\SimModelSolverBase.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.SysTool\src\ErrorData.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLNode.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLDocument.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLCache.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\googletest.1.14.0\build\native\googletest.targets" Condition="Exists('..\..\packages\googletest.1.14.0\build\native\googletest.targets')" />
+  </ImportGroup>
+</Project>
