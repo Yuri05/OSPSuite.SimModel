@@ -3,7 +3,7 @@
 
 using namespace SimModelNative;
 
-TEST(SimulationOptionsTest, DefaultConstructor_SetsExpectedDefaults)
+TEST(when_creating_simulation_options_with_default_constructor, should_set_all_expected_default_values)
 {
    SimulationOptions opts;
 
@@ -18,7 +18,7 @@ TEST(SimulationOptionsTest, DefaultConstructor_SetsExpectedDefaults)
    EXPECT_FALSE(opts.IdentifyUsedParameters());
 }
 
-TEST(SimulationOptionsTest, ShowProgress_RoundTrip)
+TEST(when_toggling_show_progress_option, should_return_the_updated_value)
 {
    SimulationOptions opts;
    opts.SetShowProgress(true);
@@ -27,14 +27,14 @@ TEST(SimulationOptionsTest, ShowProgress_RoundTrip)
    EXPECT_FALSE(opts.ShowProgress());
 }
 
-TEST(SimulationOptionsTest, ExecutionTimeLimit_RoundTrip)
+TEST(when_setting_execution_time_limit, should_return_the_updated_value)
 {
    SimulationOptions opts;
    opts.SetExecutionTimeLimit(42.5);
    EXPECT_DOUBLE_EQ(42.5, opts.ExecutionTimeLimit());
 }
 
-TEST(SimulationOptionsTest, StopOnWarnings_RoundTrip)
+TEST(when_toggling_stop_on_warnings_option, should_return_the_updated_value)
 {
    SimulationOptions opts;
    opts.SetStopOnWarnings(false);
@@ -43,49 +43,49 @@ TEST(SimulationOptionsTest, StopOnWarnings_RoundTrip)
    EXPECT_TRUE(opts.StopOnWarnings());
 }
 
-TEST(SimulationOptionsTest, AutoReduceTolerances_RoundTrip)
+TEST(when_disabling_auto_reduce_tolerances, should_return_false)
 {
    SimulationOptions opts;
    opts.SetAutoReduceTolerances(false);
    EXPECT_FALSE(opts.AutoReduceTolerances());
 }
 
-TEST(SimulationOptionsTest, WriteLogFile_RoundTrip)
+TEST(when_disabling_write_log_file, should_return_false)
 {
    SimulationOptions opts;
    opts.WriteLogFile(false);
    EXPECT_FALSE(opts.WriteLogFile());
 }
 
-TEST(SimulationOptionsTest, ValidateWithXMLSchema_RoundTrip)
+TEST(when_enabling_validate_with_xml_schema, should_return_true)
 {
    SimulationOptions opts;
    opts.ValidateWithXMLSchema(true);
    EXPECT_TRUE(opts.ValidateWithXMLSchema());
 }
 
-TEST(SimulationOptionsTest, KeepXMLNodeAsString_RoundTrip)
+TEST(when_enabling_keep_xml_node_as_string, should_return_true)
 {
    SimulationOptions opts;
    opts.SetKeepXMLNodeAsString(true);
    EXPECT_TRUE(opts.KeepXMLNodeAsString());
 }
 
-TEST(SimulationOptionsTest, UseFloatComparison_RoundTrip)
+TEST(when_disabling_use_float_comparison_in_output_time_points, should_return_false)
 {
    SimulationOptions opts;
    opts.SetUseFloatComparisonInUserOutputTimePoints(false);
    EXPECT_FALSE(opts.UseFloatComparisonInUserOutputTimePoints());
 }
 
-TEST(SimulationOptionsTest, IdentifyUsedParameters_RoundTrip)
+TEST(when_enabling_identify_used_parameters, should_return_true)
 {
    SimulationOptions opts;
    opts.IdentifyUsedParameters(true);
    EXPECT_TRUE(opts.IdentifyUsedParameters());
 }
 
-TEST(SimulationOptionsTest, LogFile_RoundTrip)
+TEST(when_setting_log_file_path, should_return_the_updated_path)
 {
    SimulationOptions opts;
    EXPECT_EQ("", opts.LogFile());
@@ -93,7 +93,7 @@ TEST(SimulationOptionsTest, LogFile_RoundTrip)
    EXPECT_EQ("C:\\logs\\test.log", opts.LogFile());
 }
 
-TEST(SimulationOptionsTest, CopyFrom_CopiesAllProperties)
+TEST(when_copying_simulation_options_from_another_instance, should_copy_all_properties_correctly)
 {
    SimulationOptions src;
    src.SetShowProgress(true);

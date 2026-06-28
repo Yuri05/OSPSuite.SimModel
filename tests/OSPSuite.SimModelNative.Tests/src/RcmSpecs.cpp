@@ -2,21 +2,20 @@
 #include "SimModel/Rcm.h"
 #include <ErrorData.h>
 #include <set>
-#include <algorithm>
 
 using namespace SimModelNative;
 
-class RcmTest : public ::testing::Test
+class when_testing_rcm : public ::testing::Test
 {
 protected:
    Rcm rcm;
 
-   std::vector<std::vector<bool>> createMatrix(int n)
+   std::vector<std::vector<bool>> createMatrix(int n) const
    {
       return std::vector<std::vector<bool>>(n, std::vector<bool>(n, false));
    }
 
-   void verifyPermutation(const std::vector<unsigned int>& perm, unsigned int n)
+   void verifyPermutation(const std::vector<unsigned int>& perm, unsigned int n) const
    {
       ASSERT_EQ(n, perm.size());
       std::set<unsigned int> seen;
@@ -29,14 +28,14 @@ protected:
    }
 };
 
-TEST_F(RcmTest, EmptyMatrix_ReturnsEmptyPermutation)
+TEST_F(when_testing_rcm, should_return_empty_permutation_for_empty_matrix)
 {
    auto matrix = createMatrix(0);
    auto perm = rcm.GenRcm(matrix);
    EXPECT_TRUE(perm.empty());
 }
 
-TEST_F(RcmTest, SingleNode_ReturnsTrivialPermutation)
+TEST_F(when_testing_rcm, should_return_trivial_permutation_for_single_node)
 {
    auto matrix = createMatrix(1);
    auto perm = rcm.GenRcm(matrix);
@@ -45,14 +44,14 @@ TEST_F(RcmTest, SingleNode_ReturnsTrivialPermutation)
    EXPECT_EQ(0u, perm[0]);
 }
 
-TEST_F(RcmTest, TwoDisconnectedNodes_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_two_disconnected_nodes)
 {
    auto matrix = createMatrix(2);
    auto perm = rcm.GenRcm(matrix);
    verifyPermutation(perm, 2);
 }
 
-TEST_F(RcmTest, TwoConnectedNodes_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_two_connected_nodes)
 {
    auto matrix = createMatrix(2);
    matrix[0][1] = true;
@@ -62,7 +61,7 @@ TEST_F(RcmTest, TwoConnectedNodes_ReturnsValidPermutation)
    verifyPermutation(perm, 2);
 }
 
-TEST_F(RcmTest, LineGraph_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_line_graph)
 {
    // 0 -- 1 -- 2 -- 3
    auto matrix = createMatrix(4);
@@ -74,7 +73,7 @@ TEST_F(RcmTest, LineGraph_ReturnsValidPermutation)
    verifyPermutation(perm, 4);
 }
 
-TEST_F(RcmTest, TenNodeExample_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_ten_node_example)
 {
    // The 10x10 example from the header documentation
    auto matrix = createMatrix(10);
@@ -104,7 +103,7 @@ TEST_F(RcmTest, TenNodeExample_ReturnsValidPermutation)
    verifyPermutation(perm, 10);
 }
 
-TEST_F(RcmTest, DirectedGraph_BecomesSymmetric)
+TEST_F(when_testing_rcm, should_handle_directed_graph_by_making_it_symmetric)
 {
    // Provide a directed (non-symmetric) adjacency and verify GenRcm handles it
    auto matrix = createMatrix(3);
@@ -115,7 +114,7 @@ TEST_F(RcmTest, DirectedGraph_BecomesSymmetric)
    verifyPermutation(perm, 3);
 }
 
-TEST_F(RcmTest, CompleteGraph_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_complete_graph)
 {
    auto matrix = createMatrix(4);
    for (int i = 0; i < 4; i++)
@@ -127,7 +126,7 @@ TEST_F(RcmTest, CompleteGraph_ReturnsValidPermutation)
    verifyPermutation(perm, 4);
 }
 
-TEST_F(RcmTest, StarGraph_ReturnsValidPermutation)
+TEST_F(when_testing_rcm, should_return_valid_permutation_for_star_graph)
 {
    // Node 0 connected to all others; others not connected to each other
    auto matrix = createMatrix(5);

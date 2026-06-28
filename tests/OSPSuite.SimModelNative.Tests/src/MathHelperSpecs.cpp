@@ -1,17 +1,16 @@
 #include <gtest/gtest.h>
 #include "SimModel/MathHelper.h"
 #include <ErrorData.h>
-#include <cmath>
 
 using namespace SimModelNative;
 
-TEST(MathHelperTest, GetNaN_ReturnsNaN)
+TEST(when_getting_nan_value, should_return_a_nan)
 {
    double nan = MathHelper::GetNaN();
    EXPECT_TRUE(MathHelper::IsNaN(nan));
 }
 
-TEST(MathHelperTest, IsNaN_FalseForRegularValues)
+TEST(when_checking_is_nan_for_regular_values, should_return_false)
 {
    EXPECT_FALSE(MathHelper::IsNaN(0.0));
    EXPECT_FALSE(MathHelper::IsNaN(1.0));
@@ -19,13 +18,13 @@ TEST(MathHelperTest, IsNaN_FalseForRegularValues)
    EXPECT_FALSE(MathHelper::IsNaN(1e300));
 }
 
-TEST(MathHelperTest, IsNaN_FalseForInfinity)
+TEST(when_checking_is_nan_for_infinity_values, should_return_false)
 {
    EXPECT_FALSE(MathHelper::IsNaN(MathHelper::GetInf()));
    EXPECT_FALSE(MathHelper::IsNaN(MathHelper::GetNegInf()));
 }
 
-TEST(MathHelperTest, GetInf_ReturnsPositiveInfinity)
+TEST(when_getting_positive_infinity, should_return_positive_infinity)
 {
    double inf = MathHelper::GetInf();
    EXPECT_TRUE(MathHelper::IsInf(inf));
@@ -33,7 +32,7 @@ TEST(MathHelperTest, GetInf_ReturnsPositiveInfinity)
    EXPECT_FALSE(MathHelper::IsFinite(inf));
 }
 
-TEST(MathHelperTest, GetNegInf_ReturnsNegativeInfinity)
+TEST(when_getting_negative_infinity, should_return_negative_infinity)
 {
    double negInf = MathHelper::GetNegInf();
    EXPECT_TRUE(MathHelper::IsNegInf(negInf));
@@ -41,25 +40,25 @@ TEST(MathHelperTest, GetNegInf_ReturnsNegativeInfinity)
    EXPECT_FALSE(MathHelper::IsFinite(negInf));
 }
 
-TEST(MathHelperTest, IsFinite_TrueForRegularValues)
+TEST(when_checking_is_finite_for_regular_values, should_return_true)
 {
    EXPECT_TRUE(MathHelper::IsFinite(0.0));
    EXPECT_TRUE(MathHelper::IsFinite(1.0));
    EXPECT_TRUE(MathHelper::IsFinite(-1e300));
 }
 
-TEST(MathHelperTest, IsFinite_FalseForNaN)
+TEST(when_checking_is_finite_for_nan, should_return_false)
 {
    EXPECT_FALSE(MathHelper::IsFinite(MathHelper::GetNaN()));
 }
 
-TEST(MathHelperTest, Pi_ApproximatelyCorrect)
+TEST(when_getting_pi_value, should_return_correct_approximation)
 {
    double pi = MathHelper::Pi();
    EXPECT_NEAR(3.14159265358979, pi, 1e-12);
 }
 
-TEST(MathHelperTest, IsNumeric_ValidNumbers)
+TEST(when_checking_valid_numeric_strings, should_return_true)
 {
    EXPECT_TRUE(MathHelper::IsNumeric("0"));
    EXPECT_TRUE(MathHelper::IsNumeric("123"));
@@ -69,7 +68,7 @@ TEST(MathHelperTest, IsNumeric_ValidNumbers)
    EXPECT_TRUE(MathHelper::IsNumeric("-2.5e-3"));
 }
 
-TEST(MathHelperTest, IsNumeric_InvalidStrings)
+TEST(when_checking_invalid_numeric_strings, should_return_false)
 {
    EXPECT_FALSE(MathHelper::IsNumeric(""));
    EXPECT_FALSE(MathHelper::IsNumeric("abc"));
@@ -77,36 +76,36 @@ TEST(MathHelperTest, IsNumeric_InvalidStrings)
    EXPECT_FALSE(MathHelper::IsNumeric("hello world"));
 }
 
-TEST(MathHelperTest, ToString_NaN)
+TEST(when_converting_nan_to_string, should_return_nan_string)
 {
    EXPECT_EQ("NaN", MathHelper::ToString(MathHelper::GetNaN()));
 }
 
-TEST(MathHelperTest, ToString_Inf)
+TEST(when_converting_positive_infinity_to_string, should_return_inf_string)
 {
    EXPECT_EQ("Inf", MathHelper::ToString(MathHelper::GetInf()));
 }
 
-TEST(MathHelperTest, ToString_NegInf)
+TEST(when_converting_negative_infinity_to_string, should_return_neg_inf_string)
 {
    EXPECT_EQ("-Inf", MathHelper::ToString(MathHelper::GetNegInf()));
 }
 
-TEST(MathHelperTest, NormalDistribution_PeakAtMean)
+TEST(when_computing_normal_distribution_at_the_mean, should_return_the_peak_value)
 {
    double peak = MathHelper::NormalDistribution(0.0, 1.0, 0.0);
    double expected = 1.0 / sqrt(2.0 * MathHelper::Pi());
    EXPECT_NEAR(expected, peak, 1e-12);
 }
 
-TEST(MathHelperTest, NormalDistribution_SymmetricAroundMean)
+TEST(when_computing_normal_distribution_symmetrically_around_mean, should_return_equal_values_on_both_sides)
 {
    double left = MathHelper::NormalDistribution(5.0, 2.0, 3.0);
    double right = MathHelper::NormalDistribution(5.0, 2.0, 7.0);
    EXPECT_NEAR(left, right, 1e-12);
 }
 
-TEST(MathHelperTest, NormalDistribution_DecreasesAwayFromMean)
+TEST(when_computing_normal_distribution_away_from_mean, should_decrease_with_increasing_distance)
 {
    double atMean = MathHelper::NormalDistribution(0.0, 1.0, 0.0);
    double atOne = MathHelper::NormalDistribution(0.0, 1.0, 1.0);
@@ -115,9 +114,9 @@ TEST(MathHelperTest, NormalDistribution_DecreasesAwayFromMean)
    EXPECT_GT(atOne, atTwo);
 }
 
-TEST(MathHelperTest, LogDistribution_ProducesExpectedValues)
+TEST(when_computing_log_distribution_with_valid_parameters, should_produce_monotonically_increasing_values)
 {
-   const long NUM_POINTS = 5;
+   constexpr long NUM_POINTS = 5;
    double values[NUM_POINTS];
    MathHelper::LogDistribution(1.0, 16.0, NUM_POINTS, values);
 
@@ -129,14 +128,14 @@ TEST(MathHelperTest, LogDistribution_ProducesExpectedValues)
    }
 }
 
-TEST(MathHelperTest, LogDistribution_SinglePoint)
+TEST(when_computing_log_distribution_with_a_single_point, should_return_the_start_value)
 {
    double values[1];
    MathHelper::LogDistribution(5.0, 10.0, 1, values);
    EXPECT_DOUBLE_EQ(5.0, values[0]);
 }
 
-TEST(MathHelperTest, LogDistribution_ThrowsOnInvalidParams)
+TEST(when_computing_log_distribution_with_invalid_parameters, should_throw_error_data)
 {
    double values[5];
 

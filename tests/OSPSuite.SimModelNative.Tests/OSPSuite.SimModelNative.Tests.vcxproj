@@ -63,7 +63,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;$(FuncParserPath)OSPSuite.FuncParserNative\include;$(SolverPath)OSPSuite.SimModelSolver_CVODES\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;$(FuncParserPath)OSPSuite.FuncParserNative\include;$(SolverPath)OSPSuite.SimModelSolver_CVODES\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;SIMMODEL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -89,7 +89,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;$(FuncParserPath)OSPSuite.FuncParserNative\include;$(SolverPath)OSPSuite.SimModelSolver_CVODES\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSPSuite.SimModelNative\include;$(ProjectDir)..\..\src\OSPSuite.SysTool\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper\Include;$(ProjectDir)..\..\src\OSPSuite.XMLWrapper;$(ProjectDir)..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\include;$(FuncParserPath)OSPSuite.FuncParserNative\include;$(SolverPath)OSPSuite.SimModelSolver_CVODES\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;SIMMODEL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -111,13 +111,13 @@
   </ItemDefinitionGroup>
   <!-- Test source files -->
   <ItemGroup>
-    <ClCompile Include="src\ErrorDataTests.cpp" />
-    <ClCompile Include="src\SimulationOptionsTests.cpp" />
-    <ClCompile Include="src\MathHelperTests.cpp" />
-    <ClCompile Include="src\SolverWarningTests.cpp" />
-    <ClCompile Include="src\ConstantFormulaTests.cpp" />
-    <ClCompile Include="src\OutputSchemaTests.cpp" />
-    <ClCompile Include="src\RcmTests.cpp" />
+    <ClCompile Include="src\ErrorDataSpecs.cpp" />
+    <ClCompile Include="src\SimulationOptionsSpecs.cpp" />
+    <ClCompile Include="src\MathHelperSpecs.cpp" />
+    <ClCompile Include="src\SolverWarningSpecs.cpp" />
+    <ClCompile Include="src\ConstantFormulaSpecs.cpp" />
+    <ClCompile Include="src\OutputSchemaSpecs.cpp" />
+    <ClCompile Include="src\RcmSpecs.cpp" />
   </ItemGroup>
   <!-- SimModelNative sources compiled directly into the test executable -->
   <ItemGroup>
@@ -182,13 +182,22 @@
     <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\SimModelSolverBase.cpp" />
     <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\SimModelSolverErrorData.cpp" />
   </ItemGroup>
+  <!-- SysTool sources compiled directly: avoids linking the prebuilt .lib (IDL=0) against
+       the test .obj files and gtestd.lib which both default to IDL=2 in Debug. -->
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OSPSuite.SysTool\OSPSuite.SysTool.vcxproj">
-      <Project>{a63d7dcb-51af-486a-bc1a-e4575f138168}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\OSPSuite.XMLWrapper\OSPSuite.XMLWrapper.vcxproj">
-      <Project>{7f3710d8-a03b-4fff-b726-a1012994e32d}</Project>
-    </ProjectReference>
+    <!-- /UUNICODE /U_UNICODE: DynamicLibrary.cpp calls LoadLibrary/SearchPath with narrow
+         char strings; without these undefs the Unicode project maps those to the W variants. -->
+    <ClCompile Include="..\..\src\OSPSuite.SysTool\src\DynamicLibrary.cpp">
+      <AdditionalOptions>/UUNICODE /U_UNICODE %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SysTool\src\ErrorData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\WindowsHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLCache.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLDocument.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLHelper.cpp" />
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLNode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
