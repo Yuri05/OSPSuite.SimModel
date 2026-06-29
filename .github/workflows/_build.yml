@@ -22,12 +22,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ${{ vars.GHA_DEFAULT_RUNNER_MACOS }}
+          - os: ${{ vars.GHA_DEFAULT_RUNNER_MACOS || 'macos-latest' }}
             platform: MacOS
             rid: osx-arm64
             native_file: libOSPSuite.SimModelNative.dylib
             version_h_modifier: "sed -i ''"
-          - os: ${{ vars.GHA_DEFAULT_RUNNER_UBUNTU }}
+          - os: ${{ vars.GHA_DEFAULT_RUNNER_UBUNTU || 'ubuntu-latest' }}
             platform: Linux
             rid: linux-x64
             native_file: libOSPSuite.SimModelNative.so
@@ -72,7 +72,7 @@ jobs:
           nuget sources add -username Open-Systems-Pharmacology -password ${{ secrets.GITHUB_TOKEN }} -name OSP-GitHub-Packages -source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json"
           dotnet nuget add source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json" --name OSP-GitHub-Packages --username Open-Systems-Pharmacology --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
 
-      - name: Build native and run .NET tests
+      - name: Build native and run .NET and C++ tests
         run: ./buildNix.sh ${{ matrix.platform }}
 
       - name: Upload native binary as artifact
@@ -88,7 +88,7 @@ jobs:
           path: ./**/testLog*.html
 
   build-test-pack-windows:
-    runs-on: ${{ vars.GHA_DEFAULT_RUNNER_WINDOWS }}
+    runs-on: ${{ vars.GHA_DEFAULT_RUNNER_WINDOWS || 'windows-latest' }}
     needs: build-native-nix
 
     steps:
