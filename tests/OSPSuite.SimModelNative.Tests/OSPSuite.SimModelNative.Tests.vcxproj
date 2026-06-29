@@ -199,6 +199,9 @@
     <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLHelper.cpp" />
     <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLNode.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(SolutionDir)packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />

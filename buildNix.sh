@@ -85,6 +85,7 @@ cp -p -f OSPSuite.SimModel.sln OSPSuite.SimModel.NetOnly.sln
 dotnet sln OSPSuite.SimModel.NetOnly.sln remove src/OSPSuite.SimModelNative/OSPSuite.SimModelNative.vcxproj
 dotnet sln OSPSuite.SimModel.NetOnly.sln remove src/OSPSuite.SysTool/OSPSuite.SysTool.vcxproj
 dotnet sln OSPSuite.SimModel.NetOnly.sln remove src/OSPSuite.XMLWrapper/OSPSuite.XMLWrapper.vcxproj
+dotnet sln OSPSuite.SimModel.NetOnly.sln remove tests/OSPSuite.SimModelNative.Tests/OSPSuite.SimModelNative.Tests.vcxproj
 
 dotnet restore OSPSuite.SimModel.NetOnly.sln
 dotnet build OSPSuite.SimModel.NetOnly.sln --configuration Release --no-restore
