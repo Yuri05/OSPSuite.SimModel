@@ -81,7 +81,7 @@ jobs:
           name: native-${{ matrix.rid }}
           path: runtimes/${{ matrix.rid }}/native/${{ matrix.native_file }}
 
-      - name: Push test log as artifact
+      - name: Push test logs (.NET and C++) as artifact
         uses: actions/upload-artifact@v7
         with:
           name: testLog_${{ matrix.os }}
@@ -118,7 +118,7 @@ jobs:
         run: nuget install packages.config -OutputDirectory packages -ExcludeVersion
 
       - name: Restore C++ test package(s) (googletest etc.)
-        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config
+        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config -OutputDirectory packages -ExcludeVersion
 
       - name: Update version.h
         shell: pwsh
@@ -184,18 +184,11 @@ jobs:
       - name: Pack the project
         run: dotnet pack src/OSPSuite.SimModel/ -o ./ -p:PackageVersion=${{ inputs.app_version }} --no-build --no-restore --configuration Release
 
-      - name: Push test log as artifact
+      - name: Push test logs (.NET and C++) as artifact
         uses: actions/upload-artifact@v7
         with:
           name: testLog_Windows
           path: ./**/testLog*.*ml
-
-      - name: Push C++ test results as artifact
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: cppTestResults_Windows
-          path: Build/Release/x64/cpp_test_results.xml
 
       - name: Push nupkg as artifact
         uses: actions/upload-artifact@v7
