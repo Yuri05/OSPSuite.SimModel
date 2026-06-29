@@ -117,6 +117,9 @@ jobs:
       - name: Restore native upstream packages (FuncParser + CVODES)
         run: nuget install packages.config -OutputDirectory packages -ExcludeVersion
 
+      - name: Restore C++ test package(s) (googletest etc.)
+        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config
+
       - name: Update version.h
         shell: pwsh
         run: |
