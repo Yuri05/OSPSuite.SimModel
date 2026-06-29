@@ -113,7 +113,7 @@
     <Link>
       <AdditionalDependencies>OSPSuite.FuncParserNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;$(FuncParserPath)OSPSuite.FuncParserNative\bin\native\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <SubSystem>Windows</SubSystem>
@@ -149,7 +149,7 @@
     <Link>
       <AdditionalDependencies>OSPSuite.FuncParserNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;$(FuncParserPath)OSPSuite.FuncParserNative\bin\native\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +179,7 @@
     <Link>
       <AdditionalDependencies>OSPSuite.FuncParserNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;$(FuncParserPath)OSPSuite.FuncParserNative\bin\native\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FuncParserPath)runtimes\win-x64\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

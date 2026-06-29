@@ -76,7 +76,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>OSPSuite.FuncParserNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\$(Platform);$(FuncParserPath)OSPSuite.FuncParserNative\bin\native\x64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\$(Platform);$(FuncParserPath)runtimes\win-x64\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -101,7 +101,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>OSPSuite.FuncParserNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\$(Platform);$(FuncParserPath)OSPSuite.FuncParserNative\bin\native\x64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\$(Platform);$(FuncParserPath)runtimes\win-x64\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

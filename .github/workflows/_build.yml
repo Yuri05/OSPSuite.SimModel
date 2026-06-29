@@ -114,11 +114,8 @@ jobs:
       - name: Add OSP NuGet Source
         run: nuget sources add -username Open-Systems-Pharmacology -password ${{ secrets.GITHUB_TOKEN }} -name OSP-GitHub-Packages -source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json"
 
-      - name: Restore native upstream packages (FuncParser + CVODES)
+      - name: Restore native upstream packages (FuncParser + CVODES + googletest)
         run: nuget install packages.config -OutputDirectory packages -ExcludeVersion
-
-      - name: Restore C++ test package(s) (googletest etc.)
-        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config -OutputDirectory packages 
 
       - name: Update version.h
         shell: pwsh
