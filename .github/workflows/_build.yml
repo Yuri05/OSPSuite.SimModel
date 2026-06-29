@@ -118,7 +118,7 @@ jobs:
         run: nuget install packages.config -OutputDirectory packages -ExcludeVersion
 
       - name: Restore C++ test package(s) (googletest etc.)
-        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config -OutputDirectory packages -ExcludeVersion
+        run: nuget install ./tests/OSPSuite.SimModelNative.Tests/packages.config -OutputDirectory packages 
 
       - name: Update version.h
         shell: pwsh
