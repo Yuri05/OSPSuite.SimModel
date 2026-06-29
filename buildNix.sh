@@ -1,11 +1,12 @@
 #! /bin/sh
 
-# Build the native library and run the .NET tests on Linux or macOS.
+# Build the native library and run the native C++ and .NET tests on Linux or macOS.
 #
 # Usage: buildNix.sh distributionName
 #   e.g. buildNix.sh Linux
 #
-# distributionName is only used to name the test log file (testLog_$1.html).
+# distributionName is only used to name the test log files (testLog_$1.html for
+# the .NET tests and testLogCpp_$1.html for the C++ tests).
 # Packing the unified multi-RID NuGet package is done in the dedicated CI
 # pack-and-publish job, not here, because it requires natives from all three
 # platforms to be present under runtimes/.
@@ -67,6 +68,15 @@ make -C Build/Release/$ARCH/
 # RPATH=$ORIGIN (Linux) / @rpath (macOS).
 mkdir -p runtimes/$RID/native
 cp Build/Release/$ARCH/$NATIVE_FILE runtimes/$RID/native/
+
+# Build and run the native C++ unit tests (OSPSuite.SimModelNative.Tests). The
+# tests link against the SimModelNative shared library just built above and
+# fetch GoogleTest via CMake, mirroring the Windows vcxproj that uses the
+# Microsoft.googletest NuGet. SIMMODEL_NATIVE_DIR points at the freshly built
+# native binary so the tests exercise the exact same artifact that ships.
+cmake -BBuild/Release/$ARCH/Tests/ -Htests/OSPSuite.SimModelNative.Tests/ -DCMAKE_BUILD_TYPE=Release -DRID=$RID -DEXT=$EXT -DSIMMODEL_NATIVE_DIR="$(pwd)/Build/Release/$ARCH"
+make -C Build/Release/$ARCH/Tests/
+Build/Release/$ARCH/Tests/OSPSuite.SimModelNative.Tests --gtest_output="html:testLogCpp_$1.html"
 
 # Build managed projects via a .NET-only solution (the C++ vcxprojs are not
 # buildable with `dotnet`).

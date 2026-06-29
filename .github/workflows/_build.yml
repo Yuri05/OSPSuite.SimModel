@@ -141,7 +141,7 @@ jobs:
         run: msbuild tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
 
       - name: Run C++ tests
-        run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=xml:Build\Release\x64\cpp_test_results.xml
+        run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=html:Build\Release\x64\testLogCpp_Windows.html
 
       - name: Stage Windows native at runtimes/win-x64/native/
         shell: pwsh
