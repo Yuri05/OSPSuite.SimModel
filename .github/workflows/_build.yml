@@ -85,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: testLog_${{ matrix.os }}
-          path: ./**/testLog*.html
+          path: ./**/testLog*.*ml
 
   build-test-pack-windows:
     runs-on: ${{ vars.GHA_DEFAULT_RUNNER_WINDOWS || 'windows-latest' }}
@@ -144,7 +144,7 @@ jobs:
         run: msbuild tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
 
       - name: Run C++ tests
-        run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=html:Build\Release\x64\testLogCpp_Windows.html
+        run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=xml:Build\Release\x64\testLogCpp_Windows.xml
 
       - name: Stage Windows native at runtimes/win-x64/native/
         shell: pwsh
@@ -188,7 +188,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: testLog_Windows
-          path: ./**/testLog*.html
+          path: ./**/testLog*.*ml
 
       - name: Push C++ test results as artifact
         if: always()

@@ -6,7 +6,7 @@
 #   e.g. buildNix.sh Linux
 #
 # distributionName is only used to name the test log files (testLog_$1.html for
-# the .NET tests and testLogCpp_$1.html for the C++ tests).
+# the .NET tests and testLogCpp_$1.xml for the C++ tests).
 # Packing the unified multi-RID NuGet package is done in the dedicated CI
 # pack-and-publish job, not here, because it requires natives from all three
 # platforms to be present under runtimes/.
@@ -76,7 +76,7 @@ cp Build/Release/$ARCH/$NATIVE_FILE runtimes/$RID/native/
 # native binary so the tests exercise the exact same artifact that ships.
 cmake -BBuild/Release/$ARCH/Tests/ -Htests/OSPSuite.SimModelNative.Tests/ -DCMAKE_BUILD_TYPE=Release -DRID=$RID -DEXT=$EXT -DSIMMODEL_NATIVE_DIR="$(pwd)/Build/Release/$ARCH"
 make -C Build/Release/$ARCH/Tests/
-Build/Release/$ARCH/Tests/OSPSuite.SimModelNative.Tests --gtest_output="html:testLogCpp_$1.html"
+Build/Release/$ARCH/Tests/OSPSuite.SimModelNative.Tests --gtest_output="xml:testLogCpp_$1.xml"
 
 # Build managed projects via a .NET-only solution (the C++ vcxprojs are not
 # buildable with `dotnet`).
