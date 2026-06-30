@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\BandwidthReduction.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\BooleanFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ConstantFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\CppODEExporter.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\DESolver.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\DESolverProperties.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\DiffFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\DivFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ExplicitFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Formula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\FormulaChange.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\FormulaFactory.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\GlobalConstants.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\HierarchicalFormulaObject.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\IfFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\MathHelper.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\MatlabODEExporter.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\MaxFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\MinFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ObjectBase.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Observer.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\OptionInfo.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\OptionValueInfo.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\OutputSchema.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Parameter.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ParameterFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ParameterInfo.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ParameterSensitivity.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\PInvokeHelper.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\PInvokeQuantity.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\PInvokeSimulation.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\PowerFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\ProductFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Quantity.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\QuantityInfo.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\QuantityReference.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\QuantityWithParameterSensitivity.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Rcm.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\SimModelSolverBase.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelSolverBase\src\OSPSuite.SimModelSolverBase\src\SimModelSolverErrorData.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SimpleProductFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Simulation.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SimulationOptions.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SimulationTask.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SolverWarning.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Species.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SpeciesInfo.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SumFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Switch.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\SwitchTask.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\TableFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\TableFormulaWithOffset.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\TableFormulaWithXArgument.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\UnaryFunctionFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\Variable.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\VariableFormula.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SimModelNative\src\VariableWithParameterSensitivity.cpp">
+      <Filter>src_SimModelNative</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConstantFormulaSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ErrorDataSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MathHelperSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OutputSchemaSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RcmSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimulationOptionsSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SolverWarningSpecs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SysTool\src\DynamicLibrary.cpp">
+      <Filter>src_SysTool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.SysTool\src\ErrorData.cpp">
+      <Filter>src_SysTool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\WindowsHelper.cpp">
+      <Filter>src_XMLWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLCache.cpp">
+      <Filter>src_XMLWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLDocument.cpp">
+      <Filter>src_XMLWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLHelper.cpp">
+      <Filter>src_XMLWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OSPSuite.XMLWrapper\src\XMLNode.cpp">
+      <Filter>src_XMLWrapper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{a9fa05d9-ffd2-4d53-a9d0-40c756deb094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src_SimModelNative">
+      <UniqueIdentifier>{17ccadf1-67c3-4476-9b88-668da9d52aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src_SysTool">
+      <UniqueIdentifier>{f1707aac-3921-4bc6-a579-4cc8d0da3e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src_XMLWrapper">
+      <UniqueIdentifier>{8283fba6-ed61-43d0-88ed-3c8c7a8f1e79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+</Project>

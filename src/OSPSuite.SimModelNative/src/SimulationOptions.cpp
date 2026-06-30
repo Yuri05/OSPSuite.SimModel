@@ -32,6 +32,7 @@ void SimulationOptions::CopyFrom(SimulationOptions & srcOptions)
 	_keepXMLNodeAsString = srcOptions.KeepXMLNodeAsString();
 	_useFloatComparisonInUserOutputTimePoints = srcOptions.UseFloatComparisonInUserOutputTimePoints();
 	_identifyUsedParameters = srcOptions.IdentifyUsedParameters();
+   _logFile = srcOptions.LogFile();
 }
 
 void SimulationOptions::WriteLogFile(bool writeLogFile)

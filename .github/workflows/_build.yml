@@ -22,12 +22,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ${{ vars.GHA_DEFAULT_RUNNER_MACOS }}
+          - os: ${{ vars.GHA_DEFAULT_RUNNER_MACOS || 'macos-latest' }}
             platform: MacOS
             rid: osx-arm64
             native_file: libOSPSuite.SimModelNative.dylib
             version_h_modifier: "sed -i ''"
-          - os: ${{ vars.GHA_DEFAULT_RUNNER_UBUNTU }}
+          - os: ${{ vars.GHA_DEFAULT_RUNNER_UBUNTU || 'ubuntu-latest' }}
             platform: Linux
             rid: linux-x64
             native_file: libOSPSuite.SimModelNative.so
@@ -61,6 +61,24 @@ jobs:
         with:
           dotnet-version: 10.x
 
+      # The standalone `nuget` CLI used below (and by buildNix.sh) is no longer
+      # preinstalled on the current ubuntu-latest (24.04) and macos-latest
+      # images, where Mono was removed (actions/runner-images#8650). Install
+      # Mono (the CLI is Mono-based on Linux/macOS) and the NuGet CLI explicitly
+      # so the build works regardless of which runner image GHA_DEFAULT_RUNNER_*
+      # resolves to.
+      - name: Install Mono (NuGet CLI runtime)
+        run: |
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            brew install mono
+          else
+            sudo apt-get update
+            sudo apt-get install -y mono-complete
+          fi
+
+      - name: Setup NuGet CLI
+        uses: NuGet/setup-nuget@v2
+
       # buildNix.sh uses BOTH the standalone `nuget` CLI (for the C++ build's
       # packages.config — pulls upstream natives/headers from FuncParser and
       # CVODES) and `dotnet restore` (for the managed projects — pulls
@@ -72,7 +90,7 @@ jobs:
           nuget sources add -username Open-Systems-Pharmacology -password ${{ secrets.GITHUB_TOKEN }} -name OSP-GitHub-Packages -source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json"
           dotnet nuget add source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json" --name OSP-GitHub-Packages --username Open-Systems-Pharmacology --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
 
-      - name: Build native and run .NET tests
+      - name: Build native and run .NET and C++ tests
         run: ./buildNix.sh ${{ matrix.platform }}
 
       - name: Upload native binary as artifact
@@ -81,14 +99,14 @@ jobs:
           name: native-${{ matrix.rid }}
           path: runtimes/${{ matrix.rid }}/native/${{ matrix.native_file }}
 
-      - name: Push test log as artifact
+      - name: Push test logs (.NET and C++) as artifact
         uses: actions/upload-artifact@v7
         with:
           name: testLog_${{ matrix.os }}
-          path: ./**/testLog*.html
+          path: ./**/testLog*.*ml
 
   build-test-pack-windows:
-    runs-on: ${{ vars.GHA_DEFAULT_RUNNER_WINDOWS }}
+    runs-on: ${{ vars.GHA_DEFAULT_RUNNER_WINDOWS || 'windows-latest' }}
     needs: build-native-nix
 
     steps:
@@ -114,7 +132,7 @@ jobs:
       - name: Add OSP NuGet Source
         run: nuget sources add -username Open-Systems-Pharmacology -password ${{ secrets.GITHUB_TOKEN }} -name OSP-GitHub-Packages -source "https://nuget.pkg.github.com/Open-Systems-Pharmacology/index.json"
 
-      - name: Restore native upstream packages (FuncParser + CVODES)
+      - name: Restore native upstream packages (FuncParser + CVODES + googletest)
         run: nuget install packages.config -OutputDirectory packages -ExcludeVersion
 
       - name: Update version.h
@@ -125,17 +143,20 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v3
 
-      # The C++ vcxprojs are built with the VS-bundled MSBuild, while the .NET
-      # projects are built with the SDK installed by setup-dotnet. This keeps
-      # the .NET version we target independent of whichever Visual Studio
-      # version ships on the GitHub-hosted runner image. SolutionDir is passed
-      # explicitly so each vcxproj's $(SolutionDir)-relative OutDir resolves to
-      # the repo-root Build/ directory the same way it does when MSBuild loads
-      # the .sln.
-      # SysTool/XMLWrapper are pulled in via <ProjectReference> from the
-      # SimModelNative vcxproj, so building the latter recursively builds them.
+      # nuget restore requires mono, which is not installed on all runners by default.
       - name: Build native (Release)
         run: msbuild src\OSPSuite.SimModelNative\OSPSuite.SimModelNative.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
+
+      - name: Build C++ tests (Release)
+        run: msbuild tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
+
+      # Windows has no RPATH; copy FuncParser DLLs next to the test exe.
+      - name: Stage native dependencies for C++ tests
+        shell: pwsh
+        run: Copy-Item packages\OSPSuite.FuncParser\runtimes\win-x64\native\*.dll Build\Release\x64\ -Force
+
+      - name: Run C++ tests
+        run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=xml:Build\Release\x64\testLogCpp_Windows.xml
 
       - name: Stage Windows native at runtimes/win-x64/native/
         shell: pwsh
@@ -162,6 +183,7 @@ jobs:
           dotnet sln OSPSuite.SimModel.NetOnly.sln remove src\OSPSuite.SimModelNative\OSPSuite.SimModelNative.vcxproj
           dotnet sln OSPSuite.SimModel.NetOnly.sln remove src\OSPSuite.SysTool\OSPSuite.SysTool.vcxproj
           dotnet sln OSPSuite.SimModel.NetOnly.sln remove src\OSPSuite.XMLWrapper\OSPSuite.XMLWrapper.vcxproj
+          dotnet sln OSPSuite.SimModel.NetOnly.sln remove tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj
 
       - name: Restore .NET projects
         run: dotnet restore OSPSuite.SimModel.NetOnly.sln
@@ -175,11 +197,11 @@ jobs:
       - name: Pack the project
         run: dotnet pack src/OSPSuite.SimModel/ -o ./ -p:PackageVersion=${{ inputs.app_version }} --no-build --no-restore --configuration Release
 
-      - name: Push test log as artifact
+      - name: Push test logs (.NET and C++) as artifact
         uses: actions/upload-artifact@v7
         with:
           name: testLog_Windows
-          path: ./**/testLog*.html
+          path: ./**/testLog*.*ml
 
       - name: Push nupkg as artifact
         uses: actions/upload-artifact@v7
