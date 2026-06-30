@@ -61,6 +61,24 @@ jobs:
         with:
           dotnet-version: 10.x
 
+      # The standalone `nuget` CLI used below (and by buildNix.sh) is no longer
+      # preinstalled on the current ubuntu-latest (24.04) and macos-latest
+      # images, where Mono was removed (actions/runner-images#8650). Install
+      # Mono (the CLI is Mono-based on Linux/macOS) and the NuGet CLI explicitly
+      # so the build works regardless of which runner image GHA_DEFAULT_RUNNER_*
+      # resolves to.
+      - name: Install Mono (NuGet CLI runtime)
+        run: |
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            brew install mono
+          else
+            sudo apt-get update
+            sudo apt-get install -y mono-complete
+          fi
+
+      - name: Setup NuGet CLI
+        uses: NuGet/setup-nuget@v2
+
       # buildNix.sh uses BOTH the standalone `nuget` CLI (for the C++ build's
       # packages.config — pulls upstream natives/headers from FuncParser and
       # CVODES) and `dotnet restore` (for the managed projects — pulls
