@@ -143,26 +143,14 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v3
 
-      # The C++ vcxprojs are built with the VS-bundled MSBuild, while the .NET
-      # projects are built with the SDK installed by setup-dotnet. This keeps
-      # the .NET version we target independent of whichever Visual Studio
-      # version ships on the GitHub-hosted runner image. SolutionDir is passed
-      # explicitly so each vcxproj's $(SolutionDir)-relative OutDir resolves to
-      # the repo-root Build/ directory the same way it does when MSBuild loads
-      # the .sln.
-      # SysTool/XMLWrapper are pulled in via <ProjectReference> from the
-      # SimModelNative vcxproj, so building the latter recursively builds them.
+      # nuget restore requires mono, which is not installed on all runners by default.
       - name: Build native (Release)
         run: msbuild src\OSPSuite.SimModelNative\OSPSuite.SimModelNative.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
 
       - name: Build C++ tests (Release)
         run: msbuild tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
 
-      # The test exe links against OSPSuite.FuncParserNative.lib, so it needs
-      # OSPSuite.FuncParserNative.dll (and its co-located natives) at runtime.
-      # Windows has no RPATH equivalent (unlike the Linux/macOS CMake build, which
-      # adds the FuncParser native dir to the test exe RPATH), so the DLL must sit
-      # next to the exe. Copy the restored native(s) into the test output dir.
+      # Windows has no RPATH; copy FuncParser DLLs next to the test exe.
       - name: Stage native dependencies for C++ tests
         shell: pwsh
         run: Copy-Item packages\OSPSuite.FuncParser\runtimes\win-x64\native\*.dll Build\Release\x64\ -Force
