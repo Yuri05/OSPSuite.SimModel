@@ -140,6 +140,15 @@ jobs:
       - name: Build C++ tests (Release)
         run: msbuild tests\OSPSuite.SimModelNative.Tests\OSPSuite.SimModelNative.Tests.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\
 
+      # The test exe links against OSPSuite.FuncParserNative.lib, so it needs
+      # OSPSuite.FuncParserNative.dll (and its co-located natives) at runtime.
+      # Windows has no RPATH equivalent (unlike the Linux/macOS CMake build, which
+      # adds the FuncParser native dir to the test exe RPATH), so the DLL must sit
+      # next to the exe. Copy the restored native(s) into the test output dir.
+      - name: Stage native dependencies for C++ tests
+        shell: pwsh
+        run: Copy-Item packages\OSPSuite.FuncParser\runtimes\win-x64\native\*.dll Build\Release\x64\ -Force
+
       - name: Run C++ tests
         run: Build\Release\x64\OSPSuite.SimModelNative.Tests.exe --gtest_output=xml:Build\Release\x64\testLogCpp_Windows.xml
 
