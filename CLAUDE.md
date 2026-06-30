@@ -85,7 +85,9 @@ Native binaries go to `Build/<Configuration>/x64/` on Windows, or `runtimes/<rid
 ### Test Conventions
 
 - **.NET tests** use `OSPSuite.BDDHelper` with `ContextSpecification<T>` pattern. Test classes inherit from `concern_for_Simulation` and follow the `Because`/`should_*` naming convention. XML test fixtures live in `tests/TestData/`.
-- **C++ unit tests** (`tests/OSPSuite.SimModelNative.Tests/`) use Google Test. The test project compiles all SimModelNative sources directly (not linking against the DLL) so that non-exported internal classes can be tested. Uses NuGet package `Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn`.
+- **C++ unit tests** (`tests/OSPSuite.SimModelNative.Tests/`) use Google Test with two distinct build modes:
+  - **MSBuild (Windows)**: The `.vcxproj` lists every SimModelNative `.cpp` as a `ClCompile` item, compiling the sources directly rather than linking against the DLL. This gives tests access to non-exported internal classes. Uses NuGet package `Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn`.
+  - **CMake (Linux/macOS)**: `CMakeLists.txt` does *not* recompile SimModelNative sources; instead it links against the pre-built `libOSPSuite.SimModelNative.${EXT}` shared library whose location is supplied by `buildNix.sh` via the `SIMMODEL_NATIVE_DIR` variable. GoogleTest is fetched at configure time via `FetchContent`.
 
 ## Version Management
 

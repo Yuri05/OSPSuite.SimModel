@@ -105,6 +105,7 @@ TEST(when_copying_simulation_options_from_another_instance, should_copy_all_prop
    src.SetKeepXMLNodeAsString(true);
    src.SetUseFloatComparisonInUserOutputTimePoints(false);
    src.IdentifyUsedParameters(true);
+   src.SetLogFile("copied.log");
 
    SimulationOptions dest;
    dest.CopyFrom(src);
@@ -118,4 +119,5 @@ TEST(when_copying_simulation_options_from_another_instance, should_copy_all_prop
    EXPECT_TRUE(dest.KeepXMLNodeAsString());
    EXPECT_FALSE(dest.UseFloatComparisonInUserOutputTimePoints());
    EXPECT_TRUE(dest.IdentifyUsedParameters());
+   EXPECT_EQ("copied.log", dest.LogFile());
 }
