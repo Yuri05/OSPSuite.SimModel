@@ -128,6 +128,9 @@
     <ClCompile Include="src\TableFormulaWithOffsetSpecs.cpp" />
     <ClCompile Include="src\TableFormulaWithXArgumentSpecs.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\TableFormulaTestExtender.h" />
+  </ItemGroup>
   <!-- SimModelNative sources compiled directly into the test executable -->
   <ItemGroup>
     <ClCompile Include="..\..\src\OSPSuite.SimModelNative\Src\BandwidthReduction.cpp" />

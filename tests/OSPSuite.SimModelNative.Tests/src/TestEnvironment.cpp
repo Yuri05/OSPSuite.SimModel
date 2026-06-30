@@ -15,8 +15,20 @@ namespace
    class ComEnvironment : public ::testing::Environment
    {
    public:
-      void SetUp() override { CoInitialize(NULL); }
-      void TearDown() override { CoUninitialize(); }
+      void SetUp() override { _comInitialized = SUCCEEDED(CoInitialize(NULL)); }
+      void TearDown() override
+      {
+         // Only balance a successful CoInitialize. A failed call (e.g.
+         // RPC_E_CHANGED_MODE) must not trigger CoUninitialize.
+         if (_comInitialized)
+         {
+            CoUninitialize();
+            _comInitialized = false;
+         }
+      }
+
+   private:
+      bool _comInitialized = false;
    };
 
    const ::testing::Environment* const _comEnvironment =
