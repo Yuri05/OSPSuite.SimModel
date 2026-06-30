@@ -70,7 +70,7 @@ jobs:
       - name: Install Mono (NuGet CLI runtime)
         run: |
           if [ "${{ runner.os }}" = "macOS" ]; then
-            brew trust aws/tap
+            brew trust aws/tap/azure/bicep
             brew install mono
           else
             sudo apt-get update
