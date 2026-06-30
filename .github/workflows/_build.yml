@@ -70,6 +70,10 @@ jobs:
       - name: Install Mono (NuGet CLI runtime)
         run: |
           if [ "${{ runner.os }}" = "macOS" ]; then
+            # The macOS runner image ships an untrusted aws/tap tap, which makes
+            # brew emit a "taps are not trusted" warning. Untap it as suggested
+            # by the warning before installing.
+            brew untap aws/tap || true
             brew install mono
           else
             sudo apt-get update
