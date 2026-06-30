@@ -70,11 +70,8 @@ jobs:
       - name: Install Mono (NuGet CLI runtime)
         run: |
           if [ "${{ runner.os }}" = "macOS" ]; then
-            # Suppress Homebrew's environment hints (including the "taps are not
-            # trusted" warning emitted for preinstalled taps such as aws/tap and
-            # azure/bicep on the macOS runner image), which otherwise surface as
-            # build annotations.
-            export HOMEBREW_NO_ENV_HINTS=1
+            # Suppress Homebrew's environment hints, which otherwise surface as build annotations.
+            export HOMEBREW_REQUIRE_TAP_TRUST=1
             brew install mono
           else
             sudo apt-get update
