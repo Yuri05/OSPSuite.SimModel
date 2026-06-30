@@ -36,7 +36,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: 'true'
 
@@ -77,7 +77,7 @@ jobs:
           fi
 
       - name: Setup NuGet CLI
-        uses: NuGet/setup-nuget@v2
+        uses: NuGet/setup-nuget@v4
 
       # buildNix.sh uses BOTH the standalone `nuget` CLI (for the C++ build's
       # packages.config — pulls upstream natives/headers from FuncParser and
@@ -111,7 +111,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: 'true'
 
