@@ -120,6 +120,12 @@
     <ClCompile Include="src\ConstantFormulaSpecs.cpp" />
     <ClCompile Include="src\OutputSchemaSpecs.cpp" />
     <ClCompile Include="src\RcmSpecs.cpp" />
+    <ClCompile Include="src\ExplicitFormulaSpecs.cpp" />
+    <ClCompile Include="src\ParameterSpecs.cpp" />
+    <ClCompile Include="src\SimulationTaskSpecs.cpp" />
+    <ClCompile Include="src\TableFormulaSpecs.cpp" />
+    <ClCompile Include="src\TableFormulaWithOffsetSpecs.cpp" />
+    <ClCompile Include="src\TableFormulaWithXArgumentSpecs.cpp" />
   </ItemGroup>
   <!-- SimModelNative sources compiled directly into the test executable -->
   <ItemGroup>
