@@ -71,6 +71,7 @@ jobs:
         run: |
           if [ "${{ runner.os }}" = "macOS" ]; then
             # Suppress Homebrew's environment hints, which otherwise surface as build annotations.
+            export HOMEBREW_NO_ENV_HINTS=1
             export HOMEBREW_REQUIRE_TAP_TRUST=1
             brew install mono
           else
