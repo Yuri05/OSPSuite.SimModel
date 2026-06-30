@@ -6,18 +6,11 @@
 #include "SimModel/SimModelTypeDefs.h"
 #include "SimModel/GlobalConstants.h"
 #include "SimModel/TObjectVector.h"
+#include "TableFormulaTestExtender.h"
 #include <ErrorData.h>
 #include <vector>
 
 using namespace SimModelNative;
-
-// Provide access to protected members of TableFormula via public inheritance.
-class TableFormulaForXArgumentExtender : public TableFormula
-{
-public:
-   TObjectVector<ValuePoint>& ValuePoints() { return _valuePoints; }
-   void CallCacheValues() { CacheValues(); }
-};
 
 // Provide access to protected members of TableFormulaWithXArgument via public inheritance.
 class TableFormulaWithXArgumentExtender : public TableFormulaWithXArgument
@@ -33,7 +26,7 @@ class when_creating_for_given_table_with_non_time_dependent_xargument : public :
 {
 protected:
    TableFormulaWithXArgumentExtender _formula;
-   TableFormulaForXArgumentExtender _tableFormula;
+   TableFormulaTestExtender _tableFormula;
    Parameter _xArgumentObject;
    Parameter _tableObject;
 

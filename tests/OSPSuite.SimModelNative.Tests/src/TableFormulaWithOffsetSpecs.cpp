@@ -6,18 +6,11 @@
 #include "SimModel/SimModelTypeDefs.h"
 #include "SimModel/GlobalConstants.h"
 #include "SimModel/TObjectVector.h"
+#include "TableFormulaTestExtender.h"
 #include <ErrorData.h>
 #include <vector>
 
 using namespace SimModelNative;
-
-// Provide access to protected members of TableFormula via public inheritance.
-class TableFormulaForOffsetExtender : public TableFormula
-{
-public:
-   TObjectVector<ValuePoint>& ValuePoints() { return _valuePoints; }
-   void CallCacheValues() { CacheValues(); }
-};
 
 // Provide access to protected members of TableFormulaWithOffset via public inheritance.
 class TableFormulaWithOffsetExtender : public TableFormulaWithOffset
@@ -34,7 +27,7 @@ protected:
    static constexpr double _offset = 300.0;
 
    TableFormulaWithOffsetExtender _formula;
-   TableFormulaForOffsetExtender _tableFormula;
+   TableFormulaTestExtender _tableFormula;
    Parameter _offsetObject;
    Parameter _tableObject;
 

@@ -3,24 +3,16 @@
 #include "SimModel/SimModelTypeDefs.h"
 #include "SimModel/GlobalConstants.h"
 #include "SimModel/TObjectVector.h"
+#include "TableFormulaTestExtender.h"
 #include <ErrorData.h>
 #include <vector>
 
 using namespace SimModelNative;
 
-// Provide access to protected members of TableFormula via public inheritance.
-// (Originally implemented in the C++/CLI helper TableFormulaSpecsHelper.h.)
-class TableFormulaExtender : public TableFormula
-{
-public:
-   TObjectVector<ValuePoint>& ValuePoints() { return _valuePoints; }
-   void CallCacheValues() { CacheValues(); }
-};
-
 class when_creating_for_given_table : public ::testing::Test
 {
 protected:
-   TableFormulaExtender _formula;
+   TableFormulaTestExtender _formula;
 
    void SetUp() override
    {
